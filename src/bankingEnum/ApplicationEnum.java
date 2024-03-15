@@ -1,14 +1,20 @@
-package Enum;
+package bankingEnum;
 
-import view.BankingView;
+import controller.BankingController;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 public enum ApplicationEnum {
-    ACCOUNT("ac",(i)-> {
-        BankingView.account(i);
+    ACCOUNT("0",(i)-> {
+        System.out.println("아이디, 비밀번호, 이름을 입력하세요");
+        try {
+            System.out.println(BankingController.getInstance().join(i));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         return true;
     }),
     RETRY("retry",(i)->{
@@ -25,7 +31,8 @@ public enum ApplicationEnum {
         this.predicate = predicate;
     }
 
-    public boolean getview(Scanner sc){
+    public static boolean getview(Scanner sc){
+        System.out.println("0. 계좌생성");
         String msg = sc.next();
         return Stream.of(values())
                 .filter(i->i.menu.equals(msg))
