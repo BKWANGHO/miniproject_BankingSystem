@@ -45,4 +45,14 @@ public class BankingRepository {
     ;
         return  pstmt.executeUpdate()>= 0 ? MESSENGER.SUCCESS :MESSENGER.FAIL;
     }
+
+    public MESSENGER login(Banking banking) throws SQLException {
+        String sql ="select username from banking where username = ? and password=?";
+        pstmt=conn.prepareStatement(sql);
+        pstmt.setString(1,banking.getUsername());
+        pstmt.setString(2,banking.getPassword());
+        rs = pstmt.executeQuery();
+
+        return rs.next() ? MESSENGER.SUCCESS : MESSENGER.FAIL;
+    }
 }

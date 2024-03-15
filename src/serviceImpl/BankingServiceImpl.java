@@ -23,4 +23,9 @@ public class BankingServiceImpl implements BankingService {
     public MESSENGER join(Banking banking) throws SQLException {
         return repository.join(banking);
     }
+
+    @Override
+    public MESSENGER login(Banking banking) throws SQLException {
+        return repository.login(banking);
+    }
 }

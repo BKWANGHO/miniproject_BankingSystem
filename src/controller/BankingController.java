@@ -27,9 +27,14 @@ public class BankingController {
                         .password(sc.next())
                         .name(sc.next())
                         .balance(0)
+                .build());
+    }
 
 
-
+    public MESSENGER login(Scanner sc) throws SQLException {
+        return service.login(Banking.builder()
+                .username(sc.next())
+                .password(sc.next())
                 .build());
     }
 }
