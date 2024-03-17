@@ -68,11 +68,17 @@ public class BankingController {
     }
 
     public MESSENGER accountTransfer(Scanner sc) throws SQLException {
-        String receiver = sc.next();
+        int balance = sc.nextInt();
+        Banking receiver = Banking.builder()
+                .accountNumber(sc.next())
+                .balance(balance)
+                .transation("입금")
+                .build();
+
         Banking banking = Banking.builder()
                 .accountNumber(sc.next())
                 .password(sc.next())
-                .balance(sc.nextInt())
+                .balance(balance)
                 .transation("송금")
                 .build();
 

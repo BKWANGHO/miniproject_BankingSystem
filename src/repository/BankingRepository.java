@@ -85,6 +85,15 @@ public class BankingRepository {
         pstmt.setString(3,banking.getTransation());
         pstmt.executeUpdate();
     }
+    public void historySave(Banking banking,Banking recevier) throws SQLException {
+        String sql = "insert into history(balance,accountNumber,transation) values (?,?,concat(?,(select name from banking where accountNumber = ?)))";
+        pstmt = conn.prepareStatement(sql);
+        pstmt.setInt(1,banking.getBalance());
+        pstmt.setString(2,banking.getAccountNumber());
+        pstmt.setString(3,banking.getTransation());
+        pstmt.setString(4,recevier.getAccountNumber());
+        pstmt.executeUpdate();
+    }
 
     public MESSENGER accountList() throws SQLException {
         String sql = "select * from banking ";
@@ -125,7 +134,7 @@ public class BankingRepository {
         return MESSENGER.SUCCESS;
     }
 
-    public MESSENGER accountTransfer(String receiver, Banking banking) throws SQLException {
+    public MESSENGER accountTransfer(Banking receiver, Banking banking) throws SQLException {
         String sql = "UPDATE banking SET balance = " +
                 "CASE WHEN accountNumber = ? THEN balance - ? " +
                 "WHEN accountNumber = ? THEN balance + ?" +
@@ -134,10 +143,11 @@ public class BankingRepository {
         pstmt = conn.prepareStatement(sql);
         pstmt.setString(1,banking.getAccountNumber());
         pstmt.setInt(2,banking.getBalance());
-        pstmt.setString(3,receiver);
+        pstmt.setString(3,receiver.getAccountNumber());
         pstmt.setInt(4,banking.getBalance());
         pstmt.setString(5,banking.getAccountNumber());
-        pstmt.setString(6,receiver);
+        pstmt.setString(6,receiver.getAccountNumber());
+
         return pstmt.executeUpdate() >=0 ? MESSENGER.SUCCESS : MESSENGER.FAIL;
     }
 }

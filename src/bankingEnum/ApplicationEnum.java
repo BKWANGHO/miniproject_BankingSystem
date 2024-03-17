@@ -57,8 +57,8 @@ public enum ApplicationEnum {
         }
         return true;
     }),AccountTransfer("6",(i)-> {
-        System.out.println("수신계좌를 입력하세요");
-        System.out.println("출금계좌 계좌번호,비밀번호,송금금액을 입력하세요");
+        System.out.println("송금금액, 수신계좌를 입력하세요");
+        System.out.println("출금계좌 계좌번호,비밀번호을 입력하세요");
         try {
             System.out.println(BankingController.getInstance().accountTransfer(i));
         } catch (SQLException e) {

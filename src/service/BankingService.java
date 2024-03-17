@@ -19,5 +19,5 @@ public interface BankingService {
 
     MESSENGER bankingHistory(Banking banking) throws SQLException;
 
-    MESSENGER accountTransfer(String receiver, Banking banking) throws SQLException;
+    MESSENGER accountTransfer(Banking receiver, Banking banking) throws SQLException;
 }
