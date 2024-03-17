@@ -26,6 +26,7 @@ public class BankingController {
                         .username(sc.next())
                         .password(sc.next())
                         .name(sc.next())
+                        .accountNumber(sc.next())
                         .balance(0)
                 .build());
     }
@@ -35,6 +36,14 @@ public class BankingController {
         return service.login(Banking.builder()
                 .username(sc.next())
                 .password(sc.next())
+                .build());
+    }
+
+    public MESSENGER deposit(Scanner sc) throws SQLException {
+        return service.deposit(Banking.builder()
+                .accountNumber(sc.next())
+                .balance(sc.nextInt())
+                .transation("입금")
                 .build());
     }
 }

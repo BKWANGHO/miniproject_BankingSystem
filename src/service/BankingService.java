@@ -9,4 +9,7 @@ public interface BankingService {
     MESSENGER join(Banking banking) throws SQLException;
 
     MESSENGER login(Banking banking) throws SQLException;
+
+
+    MESSENGER deposit(Banking banking) throws SQLException;
 }

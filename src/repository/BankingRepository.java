@@ -34,14 +34,15 @@ public class BankingRepository {
 
     public MESSENGER join(Banking banking) throws SQLException {
     String sql = "insert into banking(" +
-            "username,password,name,balance)" +
-            "values (?,?,?,?)";
+            "username,password,name,balance,accountNumber)" +
+            "values (?,?,?,?,?)";
 
     pstmt = conn.prepareStatement(sql);
     pstmt.setString(1,banking.getUsername());
     pstmt.setString(2,banking.getPassword());
     pstmt.setString(3,banking.getName());
     pstmt.setInt(4,banking.getBalance());
+    pstmt.setString(5,banking.getAccountNumber());
     ;
         return  pstmt.executeUpdate()>= 0 ? MESSENGER.SUCCESS :MESSENGER.FAIL;
     }
@@ -54,5 +55,16 @@ public class BankingRepository {
         rs = pstmt.executeQuery();
 
         return rs.next() ? MESSENGER.SUCCESS : MESSENGER.FAIL;
+    }
+
+    public MESSENGER deposit(Banking banking) throws SQLException {
+//        String sql = "update banking set balance = ? where accountNumber = ? ";
+        String sql = "insert into banking(balance,accountNumber,transation) values (?,?,?)";
+        pstmt=conn.prepareStatement(sql);
+        pstmt.setInt(1,banking.getBalance());
+        pstmt.setString(2,banking.getAccountNumber());
+        pstmt.setString(3,banking.getTransation());
+
+        return pstmt.executeUpdate()>= 0 ? MESSENGER.SUCCESS :MESSENGER.FAIL;
     }
 }

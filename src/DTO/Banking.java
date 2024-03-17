@@ -17,6 +17,7 @@ public class Banking {
     private int balance;
     private String transation;
     private LocalDateTime date;
+    private String accountNumber;
 
 
 }
