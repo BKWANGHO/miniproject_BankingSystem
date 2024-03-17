@@ -51,5 +51,11 @@ public class BankingServiceImpl implements BankingService {
         return repository.bankingHistory(banking);
     }
 
+    @Override
+    public MESSENGER accountTransfer(String receiver, Banking banking) throws SQLException {
+        repository.historySave(banking);
+        return repository.accountTransfer(receiver,banking);
+    }
+
 
 }

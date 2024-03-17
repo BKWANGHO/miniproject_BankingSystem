@@ -66,4 +66,16 @@ public class BankingController {
                 .accountNumber(sc.next())
                 .build());
     }
+
+    public MESSENGER accountTransfer(Scanner sc) throws SQLException {
+        String receiver = sc.next();
+        Banking banking = Banking.builder()
+                .accountNumber(sc.next())
+                .password(sc.next())
+                .balance(sc.nextInt())
+                .transation("송금")
+                .build();
+
+    return service.accountTransfer(receiver,banking);
+    }
 }

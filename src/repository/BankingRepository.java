@@ -124,4 +124,20 @@ public class BankingRepository {
 
         return MESSENGER.SUCCESS;
     }
+
+    public MESSENGER accountTransfer(String receiver, Banking banking) throws SQLException {
+        String sql = "UPDATE banking SET balance = " +
+                "CASE WHEN accountNumber = ? THEN balance - ? " +
+                "WHEN accountNumber = ? THEN balance + ?" +
+                " ELSE balance END" +
+                " WHERE accountNumber IN (?,?);";
+        pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1,banking.getAccountNumber());
+        pstmt.setInt(2,banking.getBalance());
+        pstmt.setString(3,receiver);
+        pstmt.setInt(4,banking.getBalance());
+        pstmt.setString(5,banking.getAccountNumber());
+        pstmt.setString(6,receiver);
+        return pstmt.executeUpdate() >=0 ? MESSENGER.SUCCESS : MESSENGER.FAIL;
+    }
 }
