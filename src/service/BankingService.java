@@ -14,4 +14,6 @@ public interface BankingService {
     MESSENGER deposit(Banking banking) throws SQLException;
 
     MESSENGER withdraw(Banking banking) throws SQLException;
+
+    MESSENGER accountList() throws SQLException;
 }

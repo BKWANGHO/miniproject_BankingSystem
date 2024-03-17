@@ -4,6 +4,8 @@ import DTO.Banking;
 import bankingEnum.MESSENGER;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BankingRepository {
     private static BankingRepository instance;
@@ -58,8 +60,8 @@ public class BankingRepository {
     }
 
     public MESSENGER deposit(Banking banking) throws SQLException {
-        String balance = "update banking set balance = balance + ? where accountNumber = ?";
-        pstmt = conn.prepareStatement(balance);
+        String sql = "update banking set balance = balance + ? where accountNumber = ?";
+        pstmt = conn.prepareStatement(sql);
         pstmt.setInt(1,banking.getBalance());
         pstmt.setString(2, banking.getAccountNumber());
 
@@ -67,8 +69,8 @@ public class BankingRepository {
     }
 
     public MESSENGER withdraw(Banking banking) throws SQLException {
-        String balance = "update banking set balance = balance -? where accountNumber = ?";
-        pstmt = conn.prepareStatement(balance);
+        String sql = "update banking set balance = balance -? where accountNumber = ?";
+        pstmt = conn.prepareStatement(sql);
         pstmt.setInt(1,banking.getBalance());
         pstmt.setString(2, banking.getAccountNumber());
 
@@ -76,11 +78,33 @@ public class BankingRepository {
     }
 
     public void historySave(Banking banking) throws SQLException {
-        String withdraw = "insert into history(balance,accountNumber,transation) values (?,?,?)";
-        pstmt = conn.prepareStatement(withdraw);
+        String sql = "insert into history(balance,accountNumber,transation) values (?,?,?)";
+        pstmt = conn.prepareStatement(sql);
         pstmt.setInt(1,banking.getBalance());
         pstmt.setString(2,banking.getAccountNumber());
         pstmt.setString(3,banking.getTransation());
         pstmt.executeUpdate();
+    }
+
+    public MESSENGER accountList() throws SQLException {
+        String sql = "select * from banking ";
+        pstmt= conn.prepareStatement(sql);
+        rs = pstmt.executeQuery();
+        List<Banking> ls = new ArrayList<>();
+        if (rs.next()){
+            do{
+            ls.add(Banking.builder()
+                    .username(rs.getString("username"))
+                    .name(rs.getString("name"))
+                    .balance(rs.getInt("balance"))
+                    .accountNumber(rs.getString("accountNumber"))
+                    .build());
+            }
+            while (rs.next());
+        }else {
+            System.out.println("데이터가 없습니다.");
+        }
+        ls.forEach(System.out::println);
+        return MESSENGER.SUCCESS ;
     }
 }

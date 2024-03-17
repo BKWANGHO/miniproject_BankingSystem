@@ -5,7 +5,7 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Getter
-@ToString(exclude = {"id"})
+@ToString(exclude = {"id","password","transation","date"})
 @AllArgsConstructor
 @Builder(builderMethodName = "builder")
 @NoArgsConstructor
@@ -19,5 +19,13 @@ public class Banking {
     private LocalDateTime date;
     private String accountNumber;
 
-
+    @Override
+    public String toString() {
+        return "{" +
+                "username='" + username + '\'' +
+                ", name='" + name + '\'' +
+                ", balance=" + balance +
+                ", accountNumber='" + accountNumber + '\'' +
+                '}';
+    }
 }

@@ -41,5 +41,10 @@ public class BankingServiceImpl implements BankingService {
         return repository.withdraw(banking);
     }
 
+    @Override
+    public MESSENGER accountList() throws SQLException {
+        return repository.accountList();
+    }
+
 
 }

@@ -48,12 +48,16 @@ public class BankingController {
                 .build());
     }
 
-    public MESSENGER Withdraw(Scanner sc) throws SQLException {
+    public MESSENGER withdraw(Scanner sc) throws SQLException {
         return service.withdraw(Banking.builder()
                 .accountNumber(sc.next())
                 .password(sc.next())
                 .balance(sc.nextInt())
                 .transation("출금")
                 .build());
+    }
+
+    public MESSENGER accontList() throws SQLException {
+        return service.accountList();
     }
 }
