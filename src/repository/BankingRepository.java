@@ -58,13 +58,29 @@ public class BankingRepository {
     }
 
     public MESSENGER deposit(Banking banking) throws SQLException {
-//        String sql = "update banking set balance = ? where accountNumber = ? ";
-        String sql = "insert into banking(balance,accountNumber,transation) values (?,?,?)";
-        pstmt=conn.prepareStatement(sql);
+        String balance = "update banking set balance = balance + ? where accountNumber = ?";
+        pstmt = conn.prepareStatement(balance);
+        pstmt.setInt(1,banking.getBalance());
+        pstmt.setString(2, banking.getAccountNumber());
+
+        return pstmt.executeUpdate() >=0 ? MESSENGER.SUCCESS : MESSENGER.FAIL;
+    }
+
+    public MESSENGER withdraw(Banking banking) throws SQLException {
+        String balance = "update banking set balance = balance -? where accountNumber = ?";
+        pstmt = conn.prepareStatement(balance);
+        pstmt.setInt(1,banking.getBalance());
+        pstmt.setString(2, banking.getAccountNumber());
+
+        return pstmt.executeUpdate() >=0 ? MESSENGER.SUCCESS : MESSENGER.FAIL;
+    }
+
+    public void historySave(Banking banking) throws SQLException {
+        String withdraw = "insert into history(balance,accountNumber,transation) values (?,?,?)";
+        pstmt = conn.prepareStatement(withdraw);
         pstmt.setInt(1,banking.getBalance());
         pstmt.setString(2,banking.getAccountNumber());
         pstmt.setString(3,banking.getTransation());
-
-        return pstmt.executeUpdate()>= 0 ? MESSENGER.SUCCESS :MESSENGER.FAIL;
+        pstmt.executeUpdate();
     }
 }

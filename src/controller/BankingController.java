@@ -13,8 +13,9 @@ public class BankingController {
     private static BankingController instance = new BankingController();
 
     private BankingService service;
+
     private BankingController() {
-        this.service =BankingServiceImpl.getInstance();
+        this.service = BankingServiceImpl.getInstance();
     }
 
     public static BankingController getInstance() {
@@ -23,11 +24,11 @@ public class BankingController {
 
     public MESSENGER join(Scanner sc) throws SQLException {
         return service.join(Banking.builder()
-                        .username(sc.next())
-                        .password(sc.next())
-                        .name(sc.next())
-                        .accountNumber(sc.next())
-                        .balance(0)
+                .username(sc.next())
+                .password(sc.next())
+                .name(sc.next())
+                .accountNumber(sc.next())
+                .balance(0)
                 .build());
     }
 
@@ -44,6 +45,15 @@ public class BankingController {
                 .accountNumber(sc.next())
                 .balance(sc.nextInt())
                 .transation("입금")
+                .build());
+    }
+
+    public MESSENGER Withdraw(Scanner sc) throws SQLException {
+        return service.withdraw(Banking.builder()
+                .accountNumber(sc.next())
+                .password(sc.next())
+                .balance(sc.nextInt())
+                .transation("출금")
                 .build());
     }
 }

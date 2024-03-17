@@ -31,7 +31,14 @@ public class BankingServiceImpl implements BankingService {
 
     @Override
     public MESSENGER deposit(Banking banking) throws SQLException {
+        repository.historySave(banking);
         return repository.deposit(banking);
+    }
+
+    @Override
+    public MESSENGER withdraw(Banking banking) throws SQLException {
+        repository.historySave(banking);
+        return repository.withdraw(banking);
     }
 
 
