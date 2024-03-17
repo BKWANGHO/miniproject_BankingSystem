@@ -46,5 +46,10 @@ public class BankingServiceImpl implements BankingService {
         return repository.accountList();
     }
 
+    @Override
+    public MESSENGER bankingHistory(Banking banking) throws SQLException {
+        return repository.bankingHistory(banking);
+    }
+
 
 }

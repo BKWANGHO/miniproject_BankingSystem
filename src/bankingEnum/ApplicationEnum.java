@@ -48,6 +48,14 @@ public enum ApplicationEnum {
             throw new RuntimeException(e);
         }
         return true;
+    }),BankingHistory("5",(i)-> {
+        System.out.println("계좌번호를 입력하세요");
+        try {
+            System.out.println(BankingController.getInstance().bankingHistory(i));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return true;
     }),
     RETRY("retry",(i)->{
         return true;
@@ -64,7 +72,7 @@ public enum ApplicationEnum {
     }
 
     public static boolean getview(Scanner sc){
-        System.out.println("0. 계좌생성\n1.로그인\n2.입금\n3.출금\n4.계좌리스트");
+        System.out.println("0. 계좌생성\n1.로그인\n2.입금\n3.출금\n4.계좌리스트\n5.거래내역");
         String msg = sc.next();
         return Stream.of(values())
                 .filter(i->i.menu.equals(msg))

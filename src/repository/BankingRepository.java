@@ -107,4 +107,21 @@ public class BankingRepository {
         ls.forEach(System.out::println);
         return MESSENGER.SUCCESS ;
     }
+
+    public MESSENGER bankingHistory(Banking banking) throws SQLException {
+        String sql = "select * from history where accountNumber = ?";
+        pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1,banking.getAccountNumber());
+        rs = pstmt.executeQuery();
+        if(rs.next()){
+            do{
+                System.out.printf("balance : %d, transation : %s\n"
+                        ,rs.getInt("balance"),rs.getString("transation"));
+            }while (rs.next());
+        }else {
+            System.out.println("데이터가 없습니다.");
+        }
+
+        return MESSENGER.SUCCESS;
+    }
 }

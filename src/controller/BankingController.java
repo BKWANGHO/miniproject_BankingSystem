@@ -60,4 +60,10 @@ public class BankingController {
     public MESSENGER accontList() throws SQLException {
         return service.accountList();
     }
+
+    public MESSENGER bankingHistory(Scanner sc) throws SQLException {
+        return service.bankingHistory(Banking.builder()
+                .accountNumber(sc.next())
+                .build());
+    }
 }
