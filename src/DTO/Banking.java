@@ -16,7 +16,7 @@ public class Banking {
     private String name;
     private int balance;
     private String transation;
-    private LocalDateTime date;
+    private LocalDateTime accountdate;
     private String accountNumber;
 
     @Override
